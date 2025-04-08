@@ -169,9 +169,11 @@ For **deployment**, the model was implemented as a Streamlit web app, allowing u
 ## Conclusion
 This project successfully demonstrates a machine-learning approach to distinguishing AI-generated text from human-written content. The model, using TF-IDF and Logistic Regression classification, achieves a high accuracy of approximately 99%. Looking ahead, expanding dataset coverage and exploring more advanced models will help further enhance the model’s reliability and validity. This model further confirmed the importance of the data the model was trained and tested on.
 
+All in all, both AI models classify AI-generated vs. human text using TF-IDF. The Logistic Regression model achieved a higher accuracy (99.43%) on the "Training_Essay_Data.csv" dataset compared to the Naive Bayes model (97.60%) on the "train_from_LLM-Detect_AI-GT_1MNB-3SGD.csv" dataset. While the LR model showed slightly better balanced precision and recall, the NB model had a slight bias towards AI text, and LR towards human text. The key limitation for direct comparison is the use of different datasets. Based on the reported results, Logistic Regression appears superior, but a fair comparison requires evaluation on the same data.
+
 # References
 
-Datasets were found on Kaggle, so was our inspiration for the code of the models. The datasets can be found in the repository. 
+Datasets were found on Kaggle, so was our inspiration for the code of the models. The datasets can be found in the repository as a sepparate file. 
 
 Bhandary, R., & Ghosh, B. K. (2025). Credit Card Default Prediction: An Empirical Analysis on Predictive Performance Using Statistical and Machine Learning Methods. Journal of Risk and Financial Management, 18(1), 23. https://doi.org/10.3390/jrfm18010023
 
