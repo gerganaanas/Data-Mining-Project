@@ -115,7 +115,7 @@ With the rise of AI-generated content, distinguishing between human-written and 
 **Data Collection:**
 The dataset, “train_from_LLM-Detect_AI-GT_1MNB-3SGD.csv”, consists of text samples labeled as either AI-generated (1) or human-written (0). It has been sourced from “Kaggle” and serves as the foundation for classification.  
 **Data Description:**
-The dataset includes a “text” column, which contains the textual content to be classified. A “RDizzl3_seven” column, which serves as the target variable, indicating whether a text is AI-generated or human-written. It also includes a column “prompt name” used to generate AI text (if applicable) and “source” column signifying the origin of the text sample (e.g., AI model, human author, dataset source). 
+The dataset includes a “text” column, which contains the textual content to be classified. A “RDizzl3_seven” column, which serves as the dependent variable, indicating whether a text is AI-generated or human-written. Therefore, the independent variable is the output of the user, which we are trying to predict. It also includes a column “prompt name” used to generate AI text (if applicable) and “source” column signifying the origin of the text sample (e.g., AI model, human author, dataset source). 
 **Initial Exploration:**
 To minimize bias, the dataset is shuffled before analysis. There were no missing values in the text column, however just in case they were taken care of in the next step. The initial exploration focuses on understanding the class distribution to determine whether there is a balance between AI-generated and human-written samples, which was proven to be relatively balanced. When it comes to the reliability of the data potential biases in training samples might be present due to the data coming from different sources.
 ## 3. Data Preparation
@@ -149,7 +149,7 @@ With the rise of AI-generated content, distinguishing between human-written and 
 **Data Collection:**
 The dataset, “Training_Essay_Data.csv”, consists of text samples labeled as either AI-generated (1) or human-written (0). It has been sourced from “Kaggle” and serves as the foundation for classification. With an average reliability. 
 **Data Description:**
-The dataset includes a “text” column, which contains the textual content to be classified. A “generated” column, which serves as the dependent variable, indicating whether a text is AI-generated or human-written
+The dataset includes a “text” column, which contains the textual content to be classified. A “generated” column, which serves as the dependent variable, indicating whether a text is AI-generated or human-written. Furthermore, the aim of this model is to classify the independent variable.
 **Initial Exploration:**
 To minimize bias, the dataset is **shuffled** before analysis. There were no missing values in the text column. The initial exploration focuses on understanding the class distribution to determine whether there is a balance between AI-generated and human-written samples. When it comes to the reliability of the data potential biases in training samples might be present due to the data coming from different sources.
 ## 3. Data Preparation
