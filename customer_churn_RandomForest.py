@@ -25,8 +25,8 @@ label_encoder_gender = LabelEncoder()
 data['Gender'] = label_encoder_gender.fit_transform(data['Gender'])
 
 # Features and target
-X = data.drop('Exited', axis=1)
-y = data['Exited']
+X = data.drop('Exited', axis=1) # Independent variable
+y = data['Exited'] # Dependent variable predicting whether a customer will churn
 
 # Train-test split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
