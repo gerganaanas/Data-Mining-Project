@@ -43,9 +43,9 @@ def wordopt(text):
 # Apply preprocessing
 df["text"] = df["text"].apply(wordopt)
 
-# Define features and labels
-x = df["text"]
-y = df["class"]
+# Define features 
+x = df["text"] # Independent variable
+y = df["class"] # Dependent variable
 
 # Train-test split
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.25, random_state=42)
