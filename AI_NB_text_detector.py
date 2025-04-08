@@ -79,7 +79,7 @@ st.subheader("Confusion Matrix")
 cm = confusion_matrix(y_test, y_pred)
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=model.classes_)
 
-# Plotting with bluish style
+# Plotting the Confusion Matrix
 fig, ax = plt.subplots(figsize=(8, 6))
 disp.plot(cmap='Blues', ax=ax)  # Apply a blue color palette (Blues)
 ax.set_title("Confusion Matrix", fontsize=16, fontweight='bold', color='darkblue')  # Make title blue and bold
