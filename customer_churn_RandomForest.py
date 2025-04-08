@@ -3,13 +3,14 @@
 # The accuracy of the model is 0.87
 # By using streamlit run in terminal the model becomes an application (Enhanced User-Friendliness)
 
-# Importing libraries
 import pandas as pd
 import streamlit as st
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder
-from sklearn.metrics import classification_report
+from sklearn.metrics import classification_report, confusion_matrix
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 # Load dataset
 data = pd.read_csv('Churn_Modelling.csv')
@@ -17,20 +18,20 @@ data = pd.read_csv('Churn_Modelling.csv')
 # Drop irrelevant columns
 data = data.drop(['RowNumber', 'CustomerId', 'Surname'], axis=1)
 
-# Encoding categorical independent variables
+# Encode categorical variables
 label_encoder_geo = LabelEncoder()
 data['Geography'] = label_encoder_geo.fit_transform(data['Geography'])
 label_encoder_gender = LabelEncoder()
 data['Gender'] = label_encoder_gender.fit_transform(data['Gender'])
 
-# Splitting data into features and target variable
+# Features and target
 X = data.drop('Exited', axis=1)
-y = data['Exited']  # Dependent variable 
+y = data['Exited']
 
-# Splitting dataset into training and testing sets
+# Train-test split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Creating and training the Random Forest model with best parameters
+# Model training (with best parameters)
 model = RandomForestClassifier(
     n_estimators=918,
     max_depth=30,
@@ -91,21 +92,28 @@ st.write(churn_labels[prediction[0]])
 st.subheader('Prediction Confidence')
 st.write(prediction_proba)
 
-# Generate classification report
+# Evaluation metrics
 y_pred = model.predict(X_test)
 report_dict = classification_report(y_test, y_pred, target_names=["Stayed", "Churned"], output_dict=True)
 report_df = pd.DataFrame(report_dict).transpose()
 
-# Display classification report as a table with style 
 st.subheader("Classification Report")
 st.dataframe(report_df.style.format({
     "precision": "{:.2f}",
     "recall": "{:.2f}",
     "f1-score": "{:.2f}",
     "support": "{:.0f}"
-}).set_table_styles([
-    {'selector': 'th', 'props': [('background-color', '#4CAF50'), ('color', 'white')]},  # Header color
-    {'selector': 'td', 'props': [('border', '1px solid black'), ('padding', '10px')]},  # Add border and padding
-    {'selector': 'tr:nth-child(odd)', 'props': [('background-color', '#f2f2f2')]},  # Odd rows' background
-    {'selector': 'tr:nth-child(even)', 'props': [('background-color', '#ffffff')]},  # Even rows' background
-]))
+}))
+
+# Confusion matrix
+cm = confusion_matrix(y_test, y_pred)
+
+st.subheader("Confusion Matrix")
+fig, ax = plt.subplots(figsize=(6, 4))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=["Stayed", "Churned"], yticklabels=["Stayed", "Churned"], ax=ax)
+ax.set_xlabel('Predicted')
+ax.set_ylabel('Actual')
+ax.set_title('Confusion Matrix')
+st.pyplot(fig)
+
+
