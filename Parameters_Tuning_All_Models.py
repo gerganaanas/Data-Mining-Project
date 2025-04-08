@@ -214,7 +214,7 @@ df_true["class"] = 1
 df = pd.concat([df_fake, df_true], axis=0).drop(["title", "subject", "date"], axis=1)
 df = df.sample(frac=1, random_state=42).reset_index(drop=True)
 
-# Clean text function (same style)
+# Clean text function
 def clean_text(text):
     text = text.lower()
     text = re.sub('\[.*?\]', '', text)
@@ -229,8 +229,8 @@ def clean_text(text):
 df["text"] = df["text"].apply(clean_text)
 
 # Split into features and target
-X = df["text"]
-y = df["class"]
+X = df["text"] # independent variable
+y = df["class"] # dependent variable
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42, stratify=y)
 
 # Vectorize using CountVectorizer + TF-IDF Transformer
@@ -424,7 +424,7 @@ def clean_user_input(text):
     text = text.replace("\"", "").replace("'", "")  # Remove quotes from user input
     return text
 
-# Simulate user input (you can replace this part with actual input from your environment)
+# Simulate user input
 user_input = "Your sample text to check AI vs Human-generated content here."
 cleaned_input = clean_user_input(user_input)
 
