@@ -7,10 +7,11 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import accuracy_score, classification_report
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, ConfusionMatrixDisplay
 
 # The dataset contains credit card customer information and whether they defaulted on payments.
 df = pd.read_csv("UCI_Credit_Card (1).csv")
@@ -52,6 +53,13 @@ class_report = classification_report(y_test, y_pred_knn, output_dict=True)
 # Convert classification report to DataFrame
 class_report_df = pd.DataFrame(class_report).transpose()
 
+# Create the confusion matrix and plot
+cm = confusion_matrix(y_test, y_pred_knn)
+fig, ax = plt.subplots()
+disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=knn.classes_)
+disp.plot(ax=ax, cmap="Blues", colorbar=False)
+plt.title("Confusion Matrix")
+
 # Streamlit App UI
 st.title("Credit Card Default Prediction")
 st.write(f"### Model Accuracy: {accuracy:.2f}")
@@ -62,6 +70,10 @@ st.dataframe(class_report_df.style.set_table_styles(
     [{'selector': 'thead th', 'props': [('border', '2px solid black')]},
      {'selector': 'tbody td', 'props': [('border', '1px solid black')]}]
 ))
+
+# Display the confusion matrix
+st.write("### Confusion Matrix")
+st.pyplot(fig)
 
 st.sidebar.header("User Input Features")
 
@@ -74,8 +86,7 @@ def user_input_features():
     # Input for user's age
     AGE = st.sidebar.number_input("AGE", min_value=18, max_value=100, value=30)
     
-    # Inputs for past repayment history (PAY_0, PAY_2, PAY_3) where -2 means no consumption, 
-    # 0 means on-time payment and positive values indicate delay
+    # Inputs for past repayment history (PAY_0, PAY_2, PAY_3)
     PAY_0 = st.sidebar.slider("PAY_0 (Repayment Sep)", min_value=-2, max_value=8, value=0)
     PAY_2 = st.sidebar.slider("PAY_2 (Repayment Aug)", min_value=-2, max_value=8, value=0)
     PAY_3 = st.sidebar.slider("PAY_3 (Repayment Jul)", min_value=-2, max_value=8, value=0)
@@ -116,4 +127,3 @@ prediction = knn.predict(test_scaled)
 # Display prediction result
 st.write("### Prediction Result")
 st.write("Default" if prediction[0] == 1 else "No Default")
-
