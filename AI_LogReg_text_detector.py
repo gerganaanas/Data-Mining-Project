@@ -32,7 +32,8 @@ def clean_text(text):
 df['text'] = df['text'].apply(clean_text)
 
 # Split dataset
-X_train, X_test, y_train, y_test = train_test_split(df['text'], df['generated'], test_size=0.3, random_state=42)
+# text is the independent and generated is the dependent variable
+X_train, X_test, y_train, y_test = train_test_split(df['text'], df['generated'], test_size=0.3, random_state=42) 
 
 # Convert text into TF-IDF vectors
 vectorizer = TfidfVectorizer(stop_words='english', ngram_range=(1, 3), max_features=5000)
