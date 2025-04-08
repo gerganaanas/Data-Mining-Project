@@ -1,6 +1,6 @@
 # Customer Churn App
 # The model utilizes the Random Forest algorithm
-# The accuracy of the model is 0.86
+# The accuracy of the model is 0.87
 # By using streamlit run in terminal the model becomes an application (Enhanced User-Friendliness)
 
 # Importing libraries
@@ -30,8 +30,15 @@ y = data['Exited']  # Dependent variable
 # Splitting dataset into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Creating and training the Random Forest model
-model = RandomForestClassifier(n_estimators=100, random_state=42)
+# Creating and training the Random Forest model with best parameters
+model = RandomForestClassifier(
+    n_estimators=918,
+    max_depth=30,
+    max_features='sqrt',
+    min_samples_leaf=3,
+    min_samples_split=6,
+    random_state=42
+)
 model.fit(X_train, y_train)
 
 # Streamlit UI
