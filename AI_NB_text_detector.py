@@ -2,7 +2,7 @@
 # The model utilizes the Naïve Bayes (NB) algorithm, 
 # but it exhibits a bias towards Human-generated outcomes.
 # The accuracy of the model is 0.97
-# By using streamlit run the model becomes an application
+# By using streamlit run in the terminal the model becomes an application
 
 import streamlit as st
 import numpy as np
