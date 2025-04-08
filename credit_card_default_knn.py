@@ -23,7 +23,7 @@ df = df.drop(columns=['ID'])
 selected_features = ['LIMIT_BAL', 'AGE', 'PAY_0', 'PAY_2', 'PAY_3', 'BILL_AMT1', 'BILL_AMT2', 'PAY_AMT1', 'PAY_AMT2']
 X = df[selected_features]  # Independent variables
 
-# Define dependent variable (target) which indicates if a customer defaults
+# Define dependent variable which indicates if a customer defaults
 y = df['default.payment.next.month']  # Dependent variable
 
 # Split dataset into training (80%) and testing (20%) sets
